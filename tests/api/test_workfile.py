@@ -4,8 +4,11 @@ import time
 from alpine import APIClient
 from alpine.exception import *
 from alpine.workfile import *
+<<<<<<< HEAD
 from alpine.datasource import DataSource
 
+=======
+>>>>>>> 8419756... Update properties for moudle attributes
 
 from .alpineunittest import AlpineTestCase
 

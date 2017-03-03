@@ -36,7 +36,11 @@ class TestUser(AlpineTestCase):
             pass
 
         user_info = alpine_session.user.create("apitest2", "password", "test2", "test2", "apitest2@alpinenow.com",
+<<<<<<< HEAD
                                                "title", "dept", User.ApplicationRole.BusinessUser)
+=======
+                                               "title", "dept",User.ApplicationRole.BusinessUser)
+>>>>>>> 8419756... Update properties for moudle attributes
         alpine_session.user.delete(user_info['id'])
         # Verify the User is successfully deleted
         try:

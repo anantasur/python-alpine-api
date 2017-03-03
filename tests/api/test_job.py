@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os, time
 import pytz
 from datetime import datetime,timedelta
@@ -6,6 +7,11 @@ from alpine import APIClient
 from alpine.exception import *
 from alpine.job import *
 from alpine.datasource import *
+=======
+from alpine import APIClient
+from alpine.exception import *
+from alpine.job import *
+>>>>>>> 8419756... Update properties for moudle attributes
 from .alpineunittest import AlpineTestCase
 
 

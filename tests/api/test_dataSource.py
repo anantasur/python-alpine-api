@@ -2,6 +2,10 @@ from .alpineunittest import AlpineTestCase
 from alpine import APIClient
 from alpine.exception import *
 from alpine.datasource import *
+<<<<<<< HEAD
+=======
+from future.datasource import *
+>>>>>>> 8419756... Update properties for moudle attributes
 import time
 
 

@@ -26,17 +26,27 @@ class Job(AlpineObject):
         super(Job, self).__init__(base_url, session, token)
         self.task = Job.Task(base_url, session, token)
 
+<<<<<<< HEAD
     def create(self, workspace_id, job_name, schedule_type=None, interval_value=0, next_run=None,
                time_zone=None):
+=======
+    def create(self, workspace_id, job_name, schedule_type="on_demand", interval_value=0, next_run=""):
+>>>>>>> 8419756... Update properties for moudle attributes
         """
         Create a new job in a workspace with specified configuration.
 
         :param int workspace_id: ID of the workspace where the job is to be created.
         :param str job_name: Name of the job to be created.
+<<<<<<< HEAD
         :param str schedule_type: Interval unit of schedule type, Please Ref to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
         :param int interval_value: Interval value of schedule type.
         :param datetime next_run: When the next run should happen. the default value is just now.
         :param timezone time_zone: Time zone info for the next_run.
+=======
+        :param str schedule_type: Interval unit of schedule type, on_demand or in months, weeks, days, and hours.
+        :param int interval_value: Interval value of schedule type.
+        :param str next_run: When the next run should happen.
+>>>>>>> 8419756... Update properties for moudle attributes
         :return: Created job metadata
         :rtype: dict
 
@@ -388,14 +398,20 @@ class Job(AlpineObject):
             for task in task_list:
                 if task['name'] == task_name:
                     return int(task['id'])
+<<<<<<< HEAD
             # return None
             raise TaskNotFoundException("The Task with name: {0} doesn't exist".format(task_name))
+=======
+            return None
+            # raise TaskNotFoundException("The Task with name: {0} doesn't exist".format(task_name))
+>>>>>>> 8419756... Update properties for moudle attributes
 
     class ScheduleType(object):
         """
         Convenience strings for schedule types.
         """
         OnDemand = "on_demand"
+<<<<<<< HEAD
         Monthly = "months"
         Weekly = "weeks"
         Daily = "days"
@@ -409,3 +425,9 @@ class Job(AlpineObject):
         RunSQLFile = "run_sql_workfile"
         RunNotebook = ""            # TODO
         ImportSourceData = ""       # TODO
+=======
+        Months = "months"
+        Weeks = "weeks"
+        Days = "days"
+        Hours = "hours"
+>>>>>>> 8419756... Update properties for moudle attributes
