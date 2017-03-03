@@ -27,10 +27,14 @@ class TestWorkfile(AlpineTestCase):
         global workfile_name
         global workfile_id
 <<<<<<< HEAD
+<<<<<<< HEAD
         global db_datasource_id
 =======
         global data_source_id
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+        global db_datasource_id
+>>>>>>> 37253ad... fix tests
         global database_id
         global hadoop_datasource_id
         # To pass the tests, we need a Hadoop Data Source with Name "API_Test_Hadoop"
@@ -39,9 +43,13 @@ class TestWorkfile(AlpineTestCase):
         hadoop_datasource_name = "API_Test_Hadoop"
         database_name = "miner_demo"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+
+>>>>>>> 37253ad... fix tests
         # Creating a Workspace for Job tests
         alpine_session = APIClient(self.host, self.port)
         alpine_session.login(self.username, self.password)
@@ -58,10 +66,13 @@ class TestWorkfile(AlpineTestCase):
         workspace_name = workspace_info['name']
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         hadoop_datasource_id = alpine_session.datasource.get_id(hadoop_datasource_name, "Hadoop")
 
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+>>>>>>> 37253ad... fix tests
         # Upload a DB flow
         base_dir = os.getcwd()
         afm_path = "{0}/../data/afm/db_row_fil_with_variable.afm".format(base_dir)
@@ -71,6 +82,7 @@ class TestWorkfile(AlpineTestCase):
             alpine_session.workfile.delete(workfile_id)
         except WorkfileNotFoundException:
             pass
+<<<<<<< HEAD
 <<<<<<< HEAD
         database_list = alpine_session.datasource.get_database_list(db_datasource_id)
         for database in database_list:
@@ -90,6 +102,16 @@ class TestWorkfile(AlpineTestCase):
             {"data_source_type": "gpdb_data_source", "data_source_id": DataSource.DSType.GreenplumDatabase, "database_id": database_id}]
         #workfile_info = alpine_session.workfile.upload_db_afm(workspace_id, data_source_id, 1, "GpdbDataSource", "gpdb_database", afm_path)
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+        database_list = alpine_session.datasource.get_database_list(db_datasource_id)
+        for database in database_list:
+            if database['name'] == "miner_demo":
+                database_id = database['id']
+        datasource_info = [{"data_source_type": DataSource.DSType.GreenplumDatabase,
+                            "data_source_id": db_datasource_id,
+                            "database_id": database_id
+                            }]
+>>>>>>> 37253ad... fix tests
         workfile_info = alpine_session.workfile.upload(workspace_id, afm_path, datasource_info)
         workfile_id = workfile_info['id']
         workfile_name = workfile_info['file_name']
