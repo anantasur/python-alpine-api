@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import os, time
 import pytz
 from datetime import datetime,timedelta
@@ -12,6 +13,16 @@ from alpine import APIClient
 from alpine.exception import *
 from alpine.job import *
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+import os, time
+import pytz
+from datetime import datetime,timedelta,timezone
+
+from alpine import APIClient
+from alpine.exception import *
+from alpine.job import *
+from alpine.datasource import *
+>>>>>>> 190cec4... Refactory Job module and add more tests
 from .alpineunittest import AlpineTestCase
 
 
@@ -27,7 +38,10 @@ class TestJob(AlpineTestCase):
         gpdb_datasource_name = "API_Test_GPDB"
         hadoop_datasource_name = "API_Test_Hadoop"
         database_name = "miner_demo"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 190cec4... Refactory Job module and add more tests
         # Creating a Workspace for Job tests
         alpine_session = APIClient(self.host, self.port)
         alpine_session.login(self.username, self.password)
@@ -42,6 +56,10 @@ class TestJob(AlpineTestCase):
         workspace_id = workspace_info['id']
         workspace_name = workspace_info['name']
 
+<<<<<<< HEAD
+=======
+        hadoop_datasource_id = alpine_session.datasource.get_id(hadoop_datasource_name, "Hadoop")
+>>>>>>> 190cec4... Refactory Job module and add more tests
 
         # Upload a DB flow
         base_dir = os.getcwd()
@@ -57,10 +75,17 @@ class TestJob(AlpineTestCase):
         for database in database_list:
             if database['name'] == "miner_demo":
                 database_id = database['id']
+<<<<<<< HEAD
         datasource_info = [{"data_source_type": DataSource.DSType.GreenplumDatabase,
                             "data_source_id": db_datasource_id,
                             "database_id": database_id
                             }]
+=======
+        datasource_info = [
+            {"data_source_type": "gpdb_data_source", "data_source_id": DataSource.DSType.GreenplumDatabase,
+             "database_id": database_id}]
+        # workfile_info = alpine_session.workfile.upload_db_afm(workspace_id, data_source_id, 1, "GpdbDataSource", "gpdb_database", afm_path)
+>>>>>>> 190cec4... Refactory Job module and add more tests
         workfile_info = alpine_session.workfile.upload(workspace_id, afm_path, datasource_info)
         workflow_id = workfile_info['id']
         workfile_name = workfile_info['file_name']
@@ -68,6 +93,16 @@ class TestJob(AlpineTestCase):
         # Creating a Workspace for Job tests
         alpine_session = APIClient(self.host, self.port)
         alpine_session.login(self.username, self.password)
+<<<<<<< HEAD
+=======
+        try:
+            workspace_id = alpine_session.workspace.get_id("Workspace for Job Tests")
+            #alpine_session.workspace.delete(workspace_id)
+        except WorkspaceNotFoundException:
+            pass
+        #workspace_info = alpine_session.workspace.create("Workspace for Job Tests")
+        #workspace_id = workspace_info['id']
+>>>>>>> 190cec4... Refactory Job module and add more tests
         job_info = alpine_session.job.create(workspace_id, "Job for Test")
         job_id = job_info['id']
         task_info = alpine_session.job.task.create(workspace_id, job_id, workflow_id)
@@ -129,7 +164,11 @@ class TestJob(AlpineTestCase):
             alpine_session.job.delete(workspace_id, job_id)
         except JobNotFoundException:
             pass
+<<<<<<< HEAD
         start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+=======
+        start_time = (datetime.today().now(timezone.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+>>>>>>> 190cec4... Refactory Job module and add more tests
         print(start_time)
         job_info = alpine_session.job.create(workspace_id, job_name,
                                              job_interval_unit, job_interval_value, start_time)
@@ -155,7 +194,11 @@ class TestJob(AlpineTestCase):
             alpine_session.job.delete(workspace_id, job_id)
         except JobNotFoundException:
             pass
+<<<<<<< HEAD
         start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+=======
+        start_time = (datetime.today().now(timezone.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+>>>>>>> 190cec4... Refactory Job module and add more tests
         print(start_time)
         job_info = alpine_session.job.create(workspace_id, job_name,
                                              job_interval_unit, job_interval_value, start_time)

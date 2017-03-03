@@ -1,6 +1,11 @@
 import json
+<<<<<<< HEAD
 import pytz
 from datetime import datetime,timedelta
+=======
+from datetime import datetime,timedelta,timezone
+
+>>>>>>> 190cec4... Refactory Job module and add more tests
 try:
     from urllib.parse import urlparse
     from urllib.parse import urljoin
@@ -27,16 +32,22 @@ class Job(AlpineObject):
         self.task = Job.Task(base_url, session, token)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     def create(self, workspace_id, job_name, schedule_type=None, interval_value=0, next_run=None,
                time_zone=None):
 =======
     def create(self, workspace_id, job_name, schedule_type="on_demand", interval_value=0, next_run=""):
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+    def create(self, workspace_id, job_name, schedule_type=None, interval_value=0, next_run=None,
+               time_zone=timezone.utc):
+>>>>>>> 190cec4... Refactory Job module and add more tests
         """
         Create a new job in a workspace with specified configuration.
 
         :param int workspace_id: ID of the workspace where the job is to be created.
         :param str job_name: Name of the job to be created.
+<<<<<<< HEAD
 <<<<<<< HEAD
         :param str schedule_type: Interval unit of schedule type, Please Ref to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
         :param int interval_value: Interval value of schedule type.
@@ -47,6 +58,12 @@ class Job(AlpineObject):
         :param int interval_value: Interval value of schedule type.
         :param str next_run: When the next run should happen.
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+        :param str schedule_type: Interval unit of schedule type, Please reference to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
+        :param int interval_value: Interval value of schedule type.
+        :param datetime next_run: When the next run should happen. the default value is just now.
+        :param timezone time_zone: Time zone info for the next_run.
+>>>>>>> 190cec4... Refactory Job module and add more tests
         :return: Created job metadata
         :rtype: dict
 
@@ -59,9 +76,12 @@ class Job(AlpineObject):
             >>>                   )
 
         """
+<<<<<<< HEAD
         if time_zone is None:
             time_zone = pytz.utc
 
+=======
+>>>>>>> 190cec4... Refactory Job module and add more tests
         if schedule_type is None:
             schedule_type = Job.ScheduleType.OnDemand
 
@@ -263,7 +283,11 @@ class Job(AlpineObject):
             :param int workspace_id: ID of the workspace.
             :param int job_id: ID of the job to which the task is to be added.
             :param int workfile_id: ID of the workfile to be added as a task.
+<<<<<<< HEAD
             :param str task_type: For task type, please Ref to Job.TaskType. The default task type is Job.TaskType.RunWorkflow.
+=======
+            :param str task_type: For task type, please reference to Job.TaskType, By default. the task type is Job.TaskType.RunWorkflow.
+>>>>>>> 190cec4... Refactory Job module and add more tests
             :return: Metadata of the new task
             :rtype: dict
 
@@ -399,12 +423,17 @@ class Job(AlpineObject):
                 if task['name'] == task_name:
                     return int(task['id'])
 <<<<<<< HEAD
+<<<<<<< HEAD
             # return None
             raise TaskNotFoundException("The Task with name: {0} doesn't exist".format(task_name))
 =======
             return None
             # raise TaskNotFoundException("The Task with name: {0} doesn't exist".format(task_name))
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+            # return None
+            raise TaskNotFoundException("The Task with name: {0} doesn't exist".format(task_name))
+>>>>>>> 190cec4... Refactory Job module and add more tests
 
     class ScheduleType(object):
         """
@@ -412,6 +441,9 @@ class Job(AlpineObject):
         """
         OnDemand = "on_demand"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 190cec4... Refactory Job module and add more tests
         Monthly = "months"
         Weekly = "weeks"
         Daily = "days"
@@ -425,9 +457,12 @@ class Job(AlpineObject):
         RunSQLFile = "run_sql_workfile"
         RunNotebook = ""            # TODO
         ImportSourceData = ""       # TODO
+<<<<<<< HEAD
 =======
         Months = "months"
         Weeks = "weeks"
         Days = "days"
         Hours = "hours"
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+>>>>>>> 190cec4... Refactory Job module and add more tests
