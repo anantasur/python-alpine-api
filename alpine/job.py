@@ -1,7 +1,6 @@
 import json
 import pytz
 from datetime import datetime,timedelta
-
 try:
     from urllib.parse import urlparse
     from urllib.parse import urljoin
