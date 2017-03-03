@@ -3,9 +3,12 @@ from alpine import APIClient
 from alpine.exception import *
 from alpine.datasource import *
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 from future.datasource import *
 >>>>>>> 8419756... Update properties for moudle attributes
+=======
+>>>>>>> 975ccbd... Fix tests
 import time
 
 
