@@ -16,7 +16,7 @@ from alpine.job import *
 =======
 import os, time
 import pytz
-from datetime import datetime,timedelta,timezone
+from datetime import datetime,timedelta
 
 from alpine import APIClient
 from alpine.exception import *
@@ -165,10 +165,14 @@ class TestJob(AlpineTestCase):
         except JobNotFoundException:
             pass
 <<<<<<< HEAD
+<<<<<<< HEAD
         start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
 =======
         start_time = (datetime.today().now(timezone.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+        start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+>>>>>>> 6e3c73e... fix job on Python 2.7
         print(start_time)
         job_info = alpine_session.job.create(workspace_id, job_name,
                                              job_interval_unit, job_interval_value, start_time)
@@ -195,10 +199,14 @@ class TestJob(AlpineTestCase):
         except JobNotFoundException:
             pass
 <<<<<<< HEAD
+<<<<<<< HEAD
         start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
 =======
         start_time = (datetime.today().now(timezone.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+        start_time = (datetime.today().now(pytz.utc) + timedelta(minutes = 1)).strftime(next_run_datetime_format)
+>>>>>>> 6e3c73e... fix job on Python 2.7
         print(start_time)
         job_info = alpine_session.job.create(workspace_id, job_name,
                                              job_interval_unit, job_interval_value, start_time)

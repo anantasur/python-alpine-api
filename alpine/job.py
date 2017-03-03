@@ -1,9 +1,14 @@
 import json
 <<<<<<< HEAD
+<<<<<<< HEAD
 import pytz
 from datetime import datetime,timedelta
 =======
 from datetime import datetime,timedelta,timezone
+=======
+import pytz
+from datetime import datetime,timedelta
+>>>>>>> 6e3c73e... fix job on Python 2.7
 
 >>>>>>> 190cec4... Refactory Job module and add more tests
 try:
@@ -40,8 +45,12 @@ class Job(AlpineObject):
 >>>>>>> 8419756... Update properties for moudle attributes
 =======
     def create(self, workspace_id, job_name, schedule_type=None, interval_value=0, next_run=None,
+<<<<<<< HEAD
                time_zone=timezone.utc):
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+               time_zone=None):
+>>>>>>> 6e3c73e... fix job on Python 2.7
         """
         Create a new job in a workspace with specified configuration.
 
@@ -81,11 +90,17 @@ class Job(AlpineObject):
 
         """
 <<<<<<< HEAD
+<<<<<<< HEAD
         if time_zone is None:
             time_zone = pytz.utc
 
 =======
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+        if time_zone is None:
+            time_zone = pytz.utc
+
+>>>>>>> 6e3c73e... fix job on Python 2.7
         if schedule_type is None:
             schedule_type = Job.ScheduleType.OnDemand
 
