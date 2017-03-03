@@ -49,6 +49,7 @@ class Job(AlpineObject):
         :param str job_name: Name of the job to be created.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         :param str schedule_type: Interval unit of schedule type, Please Ref to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
         :param int interval_value: Interval value of schedule type.
         :param datetime next_run: When the next run should happen. the default value is just now.
@@ -60,6 +61,9 @@ class Job(AlpineObject):
 >>>>>>> 8419756... Update properties for moudle attributes
 =======
         :param str schedule_type: Interval unit of schedule type, Please reference to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
+=======
+        :param str schedule_type: Interval unit of schedule type, Please Ref to Job.ScheduleType.OnDemand, the default value is Job.ScheduleType.OnDemand.
+>>>>>>> 0720567... Refactoring default value for  function variable.
         :param int interval_value: Interval value of schedule type.
         :param datetime next_run: When the next run should happen. the default value is just now.
         :param timezone time_zone: Time zone info for the next_run.
@@ -284,10 +288,14 @@ class Job(AlpineObject):
             :param int job_id: ID of the job to which the task is to be added.
             :param int workfile_id: ID of the workfile to be added as a task.
 <<<<<<< HEAD
+<<<<<<< HEAD
             :param str task_type: For task type, please Ref to Job.TaskType. The default task type is Job.TaskType.RunWorkflow.
 =======
             :param str task_type: For task type, please reference to Job.TaskType, By default. the task type is Job.TaskType.RunWorkflow.
 >>>>>>> 190cec4... Refactory Job module and add more tests
+=======
+            :param str task_type: For task type, please Ref to Job.TaskType. The default task type is Job.TaskType.RunWorkflow.
+>>>>>>> 0720567... Refactoring default value for  function variable.
             :return: Metadata of the new task
             :rtype: dict
 
