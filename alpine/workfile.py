@@ -386,6 +386,11 @@ class Workfile(AlpineObject):
             self.session.headers.pop("Content-Type")
             self.logger.debug(response.text)
 
+            # try:
+            #     print("\n" + "Status: " + response.json()['meta']['state'])
+            # except:
+            #     pass
+
             in_progress_states = ["IN_PROGRESS", "NODE_STARTED", "STARTED", "NODE_FINISHED"]
             if response.status_code == 200:
                 try:
@@ -459,7 +464,57 @@ class Workfile(AlpineObject):
                 raise StopFlowFailureException("Workflow failed with status {0}: {1}"
                                                .format(response.status_code, response.reason))
 
-        def wait_until_finished(self, process_id, verbose=False, query_time=10, timeout=3600):
+        def query_status2(self, workflow_id, process_id):
+            """
+            Return the status of a running workflow.
+
+            :param str process_id: ID number of a particular workflow run.
+            :return: State of workflow run. One of 'WORKING', 'FINISHED', or 'FAILED'.
+            :rtype: str
+            :exception RunFlowFailureException: Process ID not found.
+
+            Example::
+
+                >>> session.workfile.process.query_status(process_id = process_id)
+
+            """
+            url = "{0}/processes/{1}/query".format(self.alpine_base_url, process_id)
+            self.session.headers.update({"Content-Type": "application/json"})
+            response = self.session.get(url, timeout=60)
+            self.session.headers.pop("Content-Type")
+            self.logger.debug(response.text)
+
+            # Detect if workflow is still running:
+            status = "NONE"
+
+            in_progress_states = ["IN_PROGRESS", "NODE_STARTED", "STARTED", "NODE_FINISHED"]
+
+            if response.status_code == 200:
+                try:
+                    if response.json()['meta']['state'] in in_progress_states:
+                        status = "WORKING"
+
+                except ValueError:
+                    if response.text == 'Workflow not started or already stopped.\n' or \
+                                    response.text == "invalid processID or workflow already stopped.\n":
+                        status = "FINISHED"
+                    else:
+                        status = "FAILED"
+            else:
+                print(response.text)
+                raise RunFlowFailureException("Workflow process ID <{0}> not found".format(process_id))
+
+            # If workflow is finished - find the finals status, otherwise return status in progress.
+            if status is "FINISHED":
+                final_results = self.download_results(workflow_id, process_id)
+                status = self.get_metadata(final_results)['status']
+
+            return status
+
+
+
+
+        def wait_until_finished(self, workflow_id, process_id, verbose=False, query_time=10, timeout=3600):
             """
             Waits for a running workflow to finish.
 
@@ -480,11 +535,11 @@ class Workfile(AlpineObject):
 
             start = time.time()
             self.logger.debug("Waiting for process ID: {0} to complete...".format(process_id))
-            wait_count = 0
 
-            workflow_status = self.query_status(process_id)
+            workflow_status = self.query_status2(workflow_id, process_id)
+
             while workflow_status == "WORKING":  # loop while waiting for workflow to complete
-                wait_count += 1
+
                 wait_total = time.time() - start
 
                 if wait_total >= timeout:
@@ -494,14 +549,16 @@ class Workfile(AlpineObject):
                         " It now has status <{2}>.".format(process_id, timeout, stop_status))
 
                 if verbose:
-                    print("\rWorkflow in progress for ~{0:.2f} seconds.".format(wait_total)),
+                    print("\rWorkflow in progress for ~{0:.1f} seconds.".format(wait_total)),
 
                 time.sleep(query_time)
 
                 if workflow_status == "FAILED":
                     raise RunFlowFailureException("The workflow with process ID: {0} failed.".format(process_id))
-                workflow_status = self.query_status(process_id)
+                workflow_status = self.query_status2(workflow_id, process_id)
+
 
             if verbose:
                 print("")
+
             return workflow_status
